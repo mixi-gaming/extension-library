@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mixi-gaminh/extension-library/transport"
+	"github.com/mixi-gaming/extension-library/transport"
 )
 
 // HttpGetAllUsersByOneCondition - HttpGetAllUsersByOneCondition

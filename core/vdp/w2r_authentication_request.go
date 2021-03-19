@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/mixi-gaminh/extension-library/model"
-	"github.com/mixi-gaminh/extension-library/transport"
+	"github.com/mixi-gaming/extension-library/model"
+	"github.com/mixi-gaming/extension-library/transport"
 
 	"github.com/google/uuid"
 )

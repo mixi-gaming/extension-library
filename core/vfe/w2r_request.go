@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/mixi-gaminh/extension-library/model"
-	"github.com/mixi-gaminh/extension-library/transport"
+	"github.com/mixi-gaming/extension-library/model"
+	"github.com/mixi-gaming/extension-library/transport"
 )
 
 // NatsUploadFiles - NatsUploadFiles

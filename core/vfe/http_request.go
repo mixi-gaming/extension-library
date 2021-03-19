@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"mime/multipart"
 
-	"github.com/mixi-gaminh/extension-library/transport"
+	"github.com/mixi-gaming/extension-library/transport"
 )
 
 func HttpUploadFiles(ctx context.Context, apiKey, bucketID string, multiPartWriter *multipart.Writer, byteBuff bytes.Buffer) map[string]interface{} {

@@ -1,4 +1,4 @@
-module github.com/mixi-gaminh/extension-library
+module github.com/mixi-gaming/extension-library
 
 go 1.16
 

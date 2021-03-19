@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/mixi-gaminh/extension-library/core/vdd"
-	"github.com/mixi-gaminh/extension-library/core/vdp"
-	"github.com/mixi-gaminh/extension-library/transport"
+	"github.com/mixi-gaming/extension-library/core/vdd"
+	"github.com/mixi-gaming/extension-library/core/vdp"
+	"github.com/mixi-gaming/extension-library/transport"
 	"github.com/spf13/viper"
 )
 
