@@ -121,7 +121,7 @@ func NatsRetrieveManyDataByListID(apiKey, bucketID string, listRecordID []string
 }
 
 // NatsSaveRecord - NatsSaveRecord
-func NatsSaveRecord(apiKey, bucketID, recordID string, body interface{}) map[string]interface{} {
+func NatsSaveRecord(apiKey, bucketID, recordID string, autoGenID bool, body interface{}) map[string]interface{} {
 	subj := "vdd_request.SaveRecord"
 
 	nReq := new(model.NATSRequest)
@@ -129,6 +129,7 @@ func NatsSaveRecord(apiKey, bucketID, recordID string, body interface{}) map[str
 	nReq.APIKey = apiKey
 	nReq.BucketID = bucketID
 	nReq.RecordID = recordID
+	nReq.AutoGenID = autoGenID
 	nReq.Body = body
 
 	payload, _ := json.Marshal(nReq)
@@ -147,7 +148,7 @@ func NatsSaveRecord(apiKey, bucketID, recordID string, body interface{}) map[str
 }
 
 // NatsSaveRecordValidator - NatsSaveRecordValidator
-func NatsSaveRecordValidator(apiKey, bucketID, recordID string, body interface{}) map[string]interface{} {
+func NatsSaveRecordValidator(apiKey, bucketID, recordID string, autoGenID bool, body interface{}) map[string]interface{} {
 	subj := "vdd_request.SaveRecordValidator"
 
 	nReq := new(model.NATSRequest)
@@ -155,6 +156,7 @@ func NatsSaveRecordValidator(apiKey, bucketID, recordID string, body interface{}
 	nReq.APIKey = apiKey
 	nReq.BucketID = bucketID
 	nReq.RecordID = recordID
+	nReq.AutoGenID = autoGenID
 	nReq.Body = body
 
 	payload, _ := json.Marshal(nReq)
