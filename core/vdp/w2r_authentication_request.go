@@ -135,6 +135,30 @@ func NatsUserLogin(apiKey, username, password string) map[string]interface{} {
 	return resp
 }
 
+// NatsValidateAccessToken - NatsValidateAccessToken
+func NatsValidateAccessToken(accessToken string) map[string]interface{} {
+	subj := "vdp_request.authentication.validate_access_token"
+
+	nReq := map[string]interface{}{
+		"request_id": "ValidateAccessToken-" + uuid.New().String(),
+		"access_token":   accessToken,
+	}
+
+	payload, _ := json.Marshal(nReq)
+	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "ValidateAccessToken Failed: " + err.Error()}
+	}
+
+	resp := make(map[string]interface{})
+	err = json.Unmarshal(msg.Data, &resp)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "ValidateAccessToken Failed: " + err.Error()}
+	}
+
+	return resp
+}
+
 // NatsGetProfile - NatsGetProfile
 func NatsGetProfile(accessToken string) map[string]interface{} {
 	subj := "vdp_request.authentication.get_profile"
