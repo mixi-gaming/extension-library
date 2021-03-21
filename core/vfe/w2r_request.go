@@ -10,12 +10,11 @@ import (
 )
 
 // NatsUploadFiles - NatsUploadFiles
-func NatsUploadFiles(userID, deviceID, bucketID string, files []*model.FileStorage) map[string]interface{} {
+func NatsUploadFiles(apiKey, bucketID string, files []*model.FileStorage) map[string]interface{} {
 	subj := "fs_request.file_storage.upload_files"
 	nReq := new(model.NATSRequestFileStorage)
 	nReq.RequestID = uuid.New().String()
-	nReq.UserID = userID
-	nReq.DeviceID = deviceID
+	nReq.ApiKey = apiKey
 	nReq.BucketID = bucketID
 	nReq.Files = files
 
@@ -34,12 +33,11 @@ func NatsUploadFiles(userID, deviceID, bucketID string, files []*model.FileStora
 }
 
 // NatsDeleteFiles - NatsDeleteFiles
-func NatsDeleteFiles(userID, deviceID, bucketID string, recordIDs []interface{}) map[string]interface{} {
+func NatsDeleteFiles(apiKey, bucketID string, recordIDs []interface{}) map[string]interface{} {
 	subj := "fs_request.file_storage.delete_files"
 	nReq := new(model.NATSRequestFileStorage)
 	nReq.RequestID = uuid.New().String()
-	nReq.UserID = userID
-	nReq.DeviceID = deviceID
+	nReq.ApiKey = apiKey
 	nReq.BucketID = bucketID
 	nReq.RecordIDs = recordIDs
 
@@ -58,12 +56,11 @@ func NatsDeleteFiles(userID, deviceID, bucketID string, recordIDs []interface{})
 }
 
 // NatsRetrieveObjsFolder - Nats Retrieve all object in folder
-func NatsRetrieveObjsFolder(userID, deviceID, bucketID, folder string) map[string]interface{} {
+func NatsRetrieveObjsFolder(apiKey, bucketID, folder string) map[string]interface{} {
 	subj := "fs_request.file_storage.retrieve_objs_folder"
 	nReq := new(model.NATSRequestFileStorage)
 	nReq.RequestID = uuid.New().String()
-	nReq.UserID = userID
-	nReq.DeviceID = deviceID
+	nReq.ApiKey = apiKey
 	nReq.BucketID = bucketID
 	nReq.Folder = folder
 
