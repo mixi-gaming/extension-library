@@ -41,7 +41,7 @@ func NatsSendEmailDefault(to []string, subject, body string) int {
 }
 
 // NatsPushIOSNotification - NatsPushIOSNotification
-func NatsPushIOSNotification(apiKey, to, title, body string) int {
+func NatsPushIOSNotification(apiKey, to, title, body string, data interface{}) int {
 	// initial
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
@@ -52,6 +52,7 @@ func NatsPushIOSNotification(apiKey, to, title, body string) int {
 					"title": title,
 					"body":  body,
 				},
+				"data": data,
 				"to": to,
 			},
 		},
