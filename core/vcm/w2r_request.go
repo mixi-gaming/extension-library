@@ -53,7 +53,7 @@ func NatsPushIOSNotification(apiKey, to, title, body string, data interface{}) i
 					"body":  body,
 				},
 				"data": data,
-				"to": to,
+				"to":   to,
 			},
 		},
 	)
@@ -108,4 +108,52 @@ func NatsPushAndroidNotification(apiKey, to, title, body string, data interface{
 		return -1
 	}
 	return 0
+}
+
+func NatsGetAllIOSHistory(apiKey string, start int64, stop int64) map[string]interface{} {
+	subject := "vcm_ios_request.get_all_history"
+	requestBody, _ := json.Marshal(
+		map[string]interface{}{
+			"request_id": uuid.New().String(),
+			"api_key":    apiKey,
+			"start":      start,
+			"stop":       stop,
+		},
+	)
+
+	msg, err := transport.Nc.Request(subject, requestBody, 15*time.Second)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "Get All IOS History FAILED: " + err.Error()}
+	}
+
+	result := make(map[string]interface{})
+	if err := json.Unmarshal(msg.Data, &result); err != nil {
+		return map[string]interface{}{"code": "10", "message": "Get All IOS History FAILED: " + err.Error()}
+	}
+	
+	return result
+}
+
+func NatsGetAllAndroidHistory(apiKey string, start int64, stop int64) map[string]interface{} {
+	subject := "vcm_android_request.get_all_history"
+	requestBody, _ := json.Marshal(
+		map[string]interface{}{
+			"request_id": uuid.New().String(),
+			"api_key":    apiKey,
+			"start":      start,
+			"stop":       stop,
+		},
+	)
+
+	msg, err := transport.Nc.Request(subject, requestBody, 15*time.Second)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "Get All Android History FAILED: " + err.Error()}
+	}
+
+	result := make(map[string]interface{})
+	if err := json.Unmarshal(msg.Data, &result); err != nil {
+		return map[string]interface{}{"code": "10", "message": "Get All Android History FAILED: " + err.Error()}
+	}
+
+	return result
 }
