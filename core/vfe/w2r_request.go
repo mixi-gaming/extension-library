@@ -2,6 +2,7 @@ package vfe
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -21,11 +22,13 @@ func NatsUploadFiles(apiKey, bucketID string, files []*model.FileStorage) map[st
 	payload, _ := json.Marshal(nReq)
 	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
 	if err != nil {
+		fmt.Println("Failed at transport.Nc.Request:", err)
 		return map[string]interface{}{"code": "10", "message": "FAILED"}
 	}
 	resp := make(map[string]interface{})
 	err = json.Unmarshal(msg.Data, &resp)
 	if err != nil {
+		fmt.Println("Failed at Unmarshal response data:", err)
 		return map[string]interface{}{"code": "10", "message": "FAILED"}
 	}
 
