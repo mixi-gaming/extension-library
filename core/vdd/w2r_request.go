@@ -542,8 +542,8 @@ func NatsGetGeoAround(apiKeyVDD, bucketID string, page, limit int, bodyData inte
 	return resp
 }
 
-// IncreaseByCondition - IncreaseByCondition
-func IncreaseByCondition(apiKeyVDD, bucketID string, bodyData interface{}) map[string]interface{} {
+// NatsIncreaseByCondition - NatsIncreaseByCondition
+func NatsIncreaseByCondition(apiKeyVDD, bucketID string, bodyData interface{}) map[string]interface{} {
 	subj := "vdd_request.IncreaseByCondition"
 
 	nReq := new(model.NATSRequest)
