@@ -541,3 +541,27 @@ func NatsGetGeoAround(apiKeyVDD, bucketID string, page, limit int, bodyData inte
 
 	return resp
 }
+
+// IncreaseByCondition - IncreaseByCondition
+func IncreaseByCondition(apiKeyVDD, bucketID string, bodyData interface{}) map[string]interface{} {
+	subj := "vdd_request.IncreaseByCondition"
+
+	nReq := new(model.NATSRequest)
+	nReq.RequestID = uuid.New().String()
+	nReq.APIKey = apiKeyVDD
+	nReq.BucketID = bucketID
+	nReq.Body = bodyData
+	payload, _ := json.Marshal(nReq)
+	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "MatchGeoNearBy FAILED: " + err.Error()}
+	}
+
+	resp := make(map[string]interface{})
+	err = json.Unmarshal(msg.Data, &resp)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "MatchGeoNearBy FAILED: " + err.Error()}
+	}
+
+	return resp
+}
