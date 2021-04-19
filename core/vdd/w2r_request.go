@@ -60,6 +60,30 @@ func NatsRetrieveAllDataInBucket(apiKey, bucketID, queryPath string) map[string]
 	return resp
 }
 
+// NatsRetrieveAllSortingDataInBucket - NatsRetrieveAllSortingDataInBucket
+func NatsRetrieveAllSortingDataInBucket(apiKey, bucketID, fieldSort string) map[string]interface{} {
+	subj := "vdd_request.SortData"
+	nReq := new(model.NATSRequest)
+	nReq.RequestID = uuid.New().String()
+	nReq.APIKey = apiKey
+	nReq.BucketID = bucketID
+	nReq.FieldSort = fieldSort
+
+	payload, _ := json.Marshal(nReq)
+	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "NatsRetrieveAllSortingDataInBucket FAILED: " + err.Error()}
+	}
+
+	resp := make(map[string]interface{})
+	err = json.Unmarshal(msg.Data, &resp)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "NatsRetrieveAllSortingDataInBucket FAILED: " + err.Error()}
+	}
+
+	return resp
+}
+
 // NatsRetrieveAllData - NatsRetrieveAllData
 func NatsRetrieveAllData(apiKey string, start, stop int64) map[string]interface{} {
 	subj := "vdd_request.RetrieveAllData"
@@ -503,6 +527,30 @@ func NatsGetGeoAround(apiKeyVDD, bucketID string, page, limit int, bodyData inte
 	nReq.Body = bodyData
 	nReq.Pagging = page
 	nReq.Limit = limit
+	payload, _ := json.Marshal(nReq)
+	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "MatchGeoNearBy FAILED: " + err.Error()}
+	}
+
+	resp := make(map[string]interface{})
+	err = json.Unmarshal(msg.Data, &resp)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "MatchGeoNearBy FAILED: " + err.Error()}
+	}
+
+	return resp
+}
+
+// NatsIncreaseByCondition - NatsIncreaseByCondition
+func NatsIncreaseByCondition(apiKeyVDD, bucketID string, bodyData interface{}) map[string]interface{} {
+	subj := "vdd_request.IncreaseByCondition"
+
+	nReq := new(model.NATSRequest)
+	nReq.RequestID = uuid.New().String()
+	nReq.APIKey = apiKeyVDD
+	nReq.BucketID = bucketID
+	nReq.Body = bodyData
 	payload, _ := json.Marshal(nReq)
 	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
 	if err != nil {
