@@ -18,7 +18,7 @@ type (
 		url          string
 		headerKeys   []string
 		headerValues []string
-		body  *bytes.Buffer
+		body         *bytes.Buffer
 	}
 )
 
@@ -92,10 +92,10 @@ func makeRequest(element httpElement) ([]byte, error) {
 }
 
 // MakeHTTPGetRequest - MakeHTTPGetRequest
-func MakeHTTPGetRequest(ctx context.Context, URL string, headerKeys, headerValues []string) ([]byte, error) {
+func MakeHTTPGetRequest(ctx context.Context, URL string, headerKeys, headerValues []string, bodyRequest []byte) ([]byte, error) {
 	headerKeys = append(headerKeys, "Content-Type")
 	headerValues = append(headerValues, "application/json")
-	return retry(5, 1, httpElement{"GET", URL, headerKeys, headerValues, nil}, makeRequest)
+	return retry(5, 1, httpElement{"GET", URL, headerKeys, headerValues, bytes.NewBuffer(bodyRequest)}, makeRequest)
 }
 
 // MakeHTTPPostRequest - MakeHTTPPostRequest

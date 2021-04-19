@@ -16,7 +16,7 @@ func HttpGetAllUsersByOneCondition(ctx context.Context, apiKey, fieldKey, fieldV
 
 	apiKey = "Bearer " + apiKey
 
-	resp, err := transport.MakeHTTPGetRequest(ctx, url, []string{"Authorization"}, []string{apiKey})
+	resp, err := transport.MakeHTTPGetRequest(ctx, url, []string{"Authorization"}, []string{apiKey}, nil)
 	if err != nil {
 		return map[string]interface{}{"code": "-1", "message": "Get Users Failed: " + err.Error()}
 	}
@@ -40,7 +40,7 @@ func HttpGetUserProfileByUserID(ctx context.Context, apiKey, userID string) map[
 	url := transport.Domain + urlGetUserProfile + userID
 
 	apiKey = "Bearer " + apiKey
-	resp, err := transport.MakeHTTPGetRequest(ctx, url, []string{"Authorization"}, []string{apiKey})
+	resp, err := transport.MakeHTTPGetRequest(ctx, url, []string{"Authorization"}, []string{apiKey}, nil)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Get User Profile Failed: " + err.Error()}
 	}
@@ -95,7 +95,7 @@ func HttpGetAllUserByOneCondition(ctx context.Context, apiKey, role string) map[
 	apiKey = "Bearer " + apiKey
 
 	// Exc
-	resp, err := transport.MakeHTTPGetRequest(ctx, url, []string{"Authorization"}, []string{apiKey})
+	resp, err := transport.MakeHTTPGetRequest(ctx, url, []string{"Authorization"}, []string{apiKey}, nil)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Get List User Failed: " + err.Error()}
 	}
@@ -115,7 +115,7 @@ func HttpGetAllUser(ctx context.Context, apiKey string) map[string]interface{} {
 	apiKey = "Bearer " + apiKey
 
 	// Exc
-	resp, err := transport.MakeHTTPGetRequest(ctx, url, []string{"Authorization"}, []string{apiKey})
+	resp, err := transport.MakeHTTPGetRequest(ctx, url, []string{"Authorization"}, []string{apiKey}, nil)
 	if err != nil {
 		fmt.Println(err)
 		return map[string]interface{}{"code": "10", "message": "Get All User Failed: " + err.Error()}
