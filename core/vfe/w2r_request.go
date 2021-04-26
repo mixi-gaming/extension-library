@@ -3,7 +3,6 @@ package vfe
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 
 	"github.com/google/uuid"
 	"github.com/mixi-gaming/extension-library/model"
@@ -20,7 +19,7 @@ func NatsUploadFiles(apiKey, bucketID string, files []*model.FileStorage) map[st
 	nReq.Files = files
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		fmt.Println("Failed at transport.Nc.Request:", err)
 		return map[string]interface{}{"code": "10", "message": "FAILED"}
@@ -45,7 +44,7 @@ func NatsDeleteFiles(apiKey, bucketID string, recordIDs []interface{}) map[strin
 	nReq.RecordIDs = recordIDs
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "FAILED"}
 	}
@@ -68,7 +67,7 @@ func NatsRetrieveObjsFolder(apiKey, bucketID, folder string) map[string]interfac
 	nReq.Folder = folder
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "FAILED"}
 	}

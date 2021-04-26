@@ -2,7 +2,6 @@ package vdp
 
 import (
 	"encoding/json"
-	"time"
 
 	"github.com/mixi-gaming/extension-library/transport"
 
@@ -20,7 +19,7 @@ func NatsCreateRoleInDomain(apiKey string, role interface{}) map[string]interfac
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Create Role Failed: " + err.Error()}
 	}
@@ -45,7 +44,7 @@ func NatsUpdateRoleInDomain(apiKey string, role interface{}) map[string]interfac
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Update Role Failed: " + err.Error()}
 	}
@@ -70,7 +69,7 @@ func NatsGetDetailRoleInDomain(apiKey string, role interface{}) map[string]inter
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Get Role Failed: " + err.Error()}
 	}
@@ -95,7 +94,7 @@ func NatsDeleteRoleInDomain(apiKey, role string) map[string]interface{} {
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Delete Role Failed: " + err.Error()}
 	}
@@ -119,7 +118,7 @@ func NatsGetAllRoleInDomain(apiKey string) map[string]interface{} {
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Get All Role Failed: " + err.Error()}
 	}
@@ -148,7 +147,7 @@ func NatsGetAllUserIDByRole(apiKey, role string, page, limit int) map[string]int
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Get All User By Role Failed: " + err.Error()}
 	}
@@ -174,7 +173,7 @@ func NatsHasPermissionForUser(apiKey, userID string, permission []string) map[st
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Check Permission Failed: " + err.Error()}
 	}
@@ -199,7 +198,7 @@ func NatsGetRolesForUserInDomain(apiKey, userID string) map[string]interface{} {
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Get Roles For User Failed: " + err.Error()}
 	}
@@ -225,7 +224,7 @@ func NatsAddRoleForUserInDomain(apiKey, userID, role string) map[string]interfac
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Add Role For User Failed: " + err.Error()}
 	}
@@ -251,7 +250,7 @@ func NatsDeleteRoleForUserInDomain(apiKey, userID, role string) map[string]inter
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Delete Role For User Failed: " + err.Error()}
 	}
@@ -276,7 +275,7 @@ func NatsGetPermissionsForUserInDomain(apiKey, userID string) map[string]interfa
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Get Permissions For User Failed: " + err.Error()}
 	}
@@ -302,7 +301,7 @@ func NatsAddPermissionForUserInDomain(apiKey, userID string, permission []string
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Add Permission For User Failed: " + err.Error()}
 	}
@@ -328,7 +327,7 @@ func NatsDeletePermissionForUserInDomain(apiKey, userID string, permission []str
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Delete Permission For User Failed: " + err.Error()}
 	}
@@ -353,7 +352,7 @@ func NatsGetUsersForPermissionInDomain(apiKey string, permission []string) map[s
 	}
 
 	payload, _ := json.Marshal(nReq)
-	msg, err := transport.Nc.Request(subj, payload, 15*time.Second)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Get Users For Permission Failed: " + err.Error()}
 	}

@@ -3,7 +3,6 @@ package vcm
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 
 	"github.com/mixi-gaming/extension-library/transport"
 
@@ -24,7 +23,7 @@ func NatsSendEmailDefault(to []string, subject, body string) int {
 		})
 
 	emailSubject := "vcm_email_request.send_email_default"
-	msg, err := transport.Nc.Request(emailSubject, requestBody, 15*time.Second)
+	msg, err := transport.Nc.Request(emailSubject, requestBody, transport.Timeout)
 	if err != nil {
 		fmt.Println("Request VCM Send Email Error:", err)
 		return -1
@@ -59,7 +58,7 @@ func NatsPushIOSNotification(apiKey, to, title, body string, data interface{}) i
 	)
 
 	subject := "vcm_ios_request.push_notification"
-	msg, err := transport.Nc.Request(subject, requestBody, 15*time.Second)
+	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
 		fmt.Println("Request VCM Push IOS Notification Error:", err)
 		return -1
@@ -94,7 +93,7 @@ func NatsPushAndroidNotification(apiKey, to, title, body string, data interface{
 	)
 
 	subject := "vcm_android_request.push_notification"
-	msg, err := transport.Nc.Request(subject, requestBody, 15*time.Second)
+	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
 		fmt.Println("Request VCM Push Android Notification Error:", err)
 		return -1
@@ -121,7 +120,7 @@ func NatsGetAllIOSHistory(apiKey string, start int64, stop int64) map[string]int
 		},
 	)
 
-	msg, err := transport.Nc.Request(subject, requestBody, 15*time.Second)
+	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Get All IOS History FAILED: " + err.Error()}
 	}
@@ -130,7 +129,7 @@ func NatsGetAllIOSHistory(apiKey string, start int64, stop int64) map[string]int
 	if err := json.Unmarshal(msg.Data, &result); err != nil {
 		return map[string]interface{}{"code": "10", "message": "Get All IOS History FAILED: " + err.Error()}
 	}
-	
+
 	return result
 }
 
@@ -145,7 +144,7 @@ func NatsGetAllAndroidHistory(apiKey string, start int64, stop int64) map[string
 		},
 	)
 
-	msg, err := transport.Nc.Request(subject, requestBody, 15*time.Second)
+	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
 		return map[string]interface{}{"code": "10", "message": "Get All Android History FAILED: " + err.Error()}
 	}

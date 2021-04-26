@@ -3,8 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/mixi-gaming/extension-library/core/vdd"
-	"github.com/mixi-gaming/extension-library/core/vdp"
+	"github.com/mixi-gaming/extension-library/core/vda"
 	"github.com/mixi-gaming/extension-library/transport"
 	"github.com/spf13/viper"
 )
@@ -24,11 +23,11 @@ func main() {
 	var resp map[string]interface{}
 
 	// VDD test
-	vddApikey := viper.GetString("api_key.vdd")
-	resp = vdd.NatsRetrieveAllDataInBucket(vddApikey, "location_site", "")
+	// vddApikey := viper.GetString("api_key.vdd")
+	// resp = vdd.NatsRetrieveAllDataInBucket(vddApikey, "location_site", "")
 
 	// VDD test
 	vdpApikey := viper.GetString("api_key.vdp")
-	resp = vdp.NatsGetAllRoleInDomain(vdpApikey)
+	resp = vda.GetAllRolesInDomain(vdpApikey)
 	fmt.Println(resp)
 }

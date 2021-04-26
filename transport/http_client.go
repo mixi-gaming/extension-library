@@ -54,13 +54,12 @@ func retry(attempts int, sleep time.Duration, elements httpElement, f func(httpE
 }
 
 func makeRequest(element httpElement) ([]byte, error) {
-	timeout := time.Duration(20 * time.Second)
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	client := http.Client{
 		Transport: tr,
-		Timeout:   timeout,
+		Timeout:   Timeout,
 	}
 
 	request, err := http.NewRequest(element.method, element.url, element.body)
