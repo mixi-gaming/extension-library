@@ -7,8 +7,8 @@ import (
 	"github.com/mixi-gaming/extension-library/transport"
 )
 
-func CreateRoleInDomain(apiKey string, role string, permissions [][]string, otherData interface{}) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.create_role"
+func CreateRole(apiKey string, role string, permissions [][]string, otherData interface{}) map[string]interface{} {
+	subject := "vda_request.rbac.role.create_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -23,19 +23,19 @@ func CreateRoleInDomain(apiKey string, role string, permissions [][]string, othe
 
 	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
-		return map[string]interface{}{"code": "10", "message": "CreateRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "CreateRole: " + err.Error()}
 	}
 
 	resp := make(map[string]interface{})
 	if err := json.Unmarshal(msg.Data, &resp); err != nil {
-		return map[string]interface{}{"code": "10", "message": "CreateRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "CreateRole: " + err.Error()}
 	}
 
 	return resp
 }
 
-func GetAllRolesInDomain(apiKey string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.get_all_roles"
+func GetAllRoles(apiKey string) map[string]interface{} {
+	subject := "vda_request.rbac.role.get_all_roles"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -45,19 +45,19 @@ func GetAllRolesInDomain(apiKey string) map[string]interface{} {
 
 	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
-		return map[string]interface{}{"code": "10", "message": "GetAllRolesInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "GetAllRoles: " + err.Error()}
 	}
 
 	resp := make(map[string]interface{})
 	if err := json.Unmarshal(msg.Data, &resp); err != nil {
-		return map[string]interface{}{"code": "10", "message": "GetAllRolesInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "GetAllRoles: " + err.Error()}
 	}
 
 	return resp
 }
 
-func GetAllRolesWithPermissionsInDomain(apiKey string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.get_all_roles_with_permissions"
+func GetAllRolesWithPermissions(apiKey string) map[string]interface{} {
+	subject := "vda_request.rbac.role.get_all_roles_with_permissions"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -67,19 +67,19 @@ func GetAllRolesWithPermissionsInDomain(apiKey string) map[string]interface{} {
 
 	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
-		return map[string]interface{}{"code": "10", "message": "GetAllRolesWithPermissionsInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "GetAllRolesWithPermissions: " + err.Error()}
 	}
 
 	resp := make(map[string]interface{})
 	if err := json.Unmarshal(msg.Data, &resp); err != nil {
-		return map[string]interface{}{"code": "10", "message": "GetAllRolesWithPermissionsInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "GetAllRolesWithPermissions: " + err.Error()}
 	}
 
 	return resp
 }
 
-func GetDetailARoleInDomain(apiKey string, role string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.get_detail_role"
+func GetDetailARole(apiKey string, role string) map[string]interface{} {
+	subject := "vda_request.rbac.role.get_detail_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -92,19 +92,19 @@ func GetDetailARoleInDomain(apiKey string, role string) map[string]interface{} {
 
 	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
-		return map[string]interface{}{"code": "10", "message": "GetDetailARoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "GetDetailARole: " + err.Error()}
 	}
 
 	resp := make(map[string]interface{})
 	if err := json.Unmarshal(msg.Data, &resp); err != nil {
-		return map[string]interface{}{"code": "10", "message": "GetDetailARoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "GetDetailARole: " + err.Error()}
 	}
 
 	return resp
 }
 
-func UpdateRoleInDomain(apiKey string, role string, permissions [][]string, otherData interface{}) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.update_role"
+func UpdateRole(apiKey string, role string, permissions [][]string, otherData interface{}) map[string]interface{} {
+	subject := "vda_request.rbac.role.update_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -119,19 +119,19 @@ func UpdateRoleInDomain(apiKey string, role string, permissions [][]string, othe
 
 	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
-		return map[string]interface{}{"code": "10", "message": "UpdateRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "UpdateRole: " + err.Error()}
 	}
 
 	resp := make(map[string]interface{})
 	if err := json.Unmarshal(msg.Data, &resp); err != nil {
-		return map[string]interface{}{"code": "10", "message": "UpdateRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "UpdateRole: " + err.Error()}
 	}
 
 	return resp
 }
 
-func AddPermissionsForRoleInDomain(apiKey string, role string, permissions [][]string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.add_permissions_for_role"
+func AddPermissionsForRole(apiKey string, role string, permissions [][]string) map[string]interface{} {
+	subject := "vda_request.rbac.role.add_permissions_for_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -145,19 +145,19 @@ func AddPermissionsForRoleInDomain(apiKey string, role string, permissions [][]s
 
 	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
-		return map[string]interface{}{"code": "10", "message": "AddPermissionsForRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "AddPermissionsForRole: " + err.Error()}
 	}
 
 	resp := make(map[string]interface{})
 	if err := json.Unmarshal(msg.Data, &resp); err != nil {
-		return map[string]interface{}{"code": "10", "message": "AddPermissionsForRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "AddPermissionsForRole: " + err.Error()}
 	}
 
 	return resp
 }
 
-func DeleteRoleInDomain(apiKey string, role string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.delete_role"
+func DeleteRole(apiKey string, role string) map[string]interface{} {
+	subject := "vda_request.rbac.role.delete_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -170,19 +170,19 @@ func DeleteRoleInDomain(apiKey string, role string) map[string]interface{} {
 
 	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
-		return map[string]interface{}{"code": "10", "message": "DeleteRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "DeleteRole: " + err.Error()}
 	}
 
 	resp := make(map[string]interface{})
 	if err := json.Unmarshal(msg.Data, &resp); err != nil {
-		return map[string]interface{}{"code": "10", "message": "DeleteRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "DeleteRole: " + err.Error()}
 	}
 
 	return resp
 }
 
-func DeletePermissionsForRoleInDomain(apiKey string, role string, permissions [][]string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.delete_permissions_for_role"
+func DeletePermissionsForRole(apiKey string, role string, permissions [][]string) map[string]interface{} {
+	subject := "vda_request.rbac.role.delete_permissions_for_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -196,19 +196,19 @@ func DeletePermissionsForRoleInDomain(apiKey string, role string, permissions []
 
 	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
-		return map[string]interface{}{"code": "10", "message": "DeletePermissionsForRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "DeletePermissionsForRole: " + err.Error()}
 	}
 
 	resp := make(map[string]interface{})
 	if err := json.Unmarshal(msg.Data, &resp); err != nil {
-		return map[string]interface{}{"code": "10", "message": "DeletePermissionsForRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "DeletePermissionsForRole: " + err.Error()}
 	}
 
 	return resp
 }
 
-func DeleteAllPermissionsForRoleInDomain(apiKey string, role string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.delete_all_permissions_for_role"
+func DeleteAllPermissionsForRole(apiKey string, role string) map[string]interface{} {
+	subject := "vda_request.rbac.role.delete_all_permissions_for_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -221,12 +221,12 @@ func DeleteAllPermissionsForRoleInDomain(apiKey string, role string) map[string]
 
 	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
 	if err != nil {
-		return map[string]interface{}{"code": "10", "message": "DeleteAllPermissionsForRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "DeleteAllPermissionsForRole: " + err.Error()}
 	}
 
 	resp := make(map[string]interface{})
 	if err := json.Unmarshal(msg.Data, &resp); err != nil {
-		return map[string]interface{}{"code": "10", "message": "DeleteAllPermissionsForRoleInDomain: " + err.Error()}
+		return map[string]interface{}{"code": "10", "message": "DeleteAllPermissionsForRole: " + err.Error()}
 	}
 
 	return resp
