@@ -8,7 +8,7 @@ import (
 )
 
 func AddRoleForUserInDomain(apiKey, role, userID string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.user.add_role_for_user_in_domain"
+	subject := "vda_request.rbac_domain.user.add_role_for_user"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -34,7 +34,7 @@ func AddRoleForUserInDomain(apiKey, role, userID string) map[string]interface{} 
 }
 
 func DeleteRoleOfUserInDomain(apiKey, role, userID string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.user.delete_role_of_user_in_domain"
+	subject := "vda_request.rbac_domain.user.delete_role_of_user"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -60,7 +60,7 @@ func DeleteRoleOfUserInDomain(apiKey, role, userID string) map[string]interface{
 }
 
 func GetUsersByRoleInDomain(apiKey, role string, page, limit int) map[string]interface{} {
-	subject := "vda_request.rbac_domain.user.get_users_by_role_in_domain"
+	subject := "vda_request.rbac_domain.user.get_users_by_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -87,7 +87,7 @@ func GetUsersByRoleInDomain(apiKey, role string, page, limit int) map[string]int
 }
 
 func GetRolesOfUserInDomain(apiKey, userID string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.user.get_roles_of_user_in_domain"
+	subject := "vda_request.rbac_domain.user.get_roles_of_user"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -112,7 +112,7 @@ func GetRolesOfUserInDomain(apiKey, userID string) map[string]interface{} {
 }
 
 func GetAllPermissionsOfUserInDomain(apiKey, userID string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.user.get_permissions_of_user_in_domain"
+	subject := "vda_request.rbac_domain.user.get_permissions_of_user"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -165,7 +165,7 @@ func HasPermissionForUser(apiKey, userID string, permission []string) map[string
 }
 
 func HasRoleForUserInDomain(apiKey, role, userID string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.user.has_role_for_user_in_domain"
+	subject := "vda_request.rbac_domain.user.has_role_for_user"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -191,7 +191,7 @@ func HasRoleForUserInDomain(apiKey, role, userID string) map[string]interface{} 
 }
 
 func GetUsersByPermissionInDomain(apiKey string, permission []string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.user.get_users_by_permission_in_domain"
+	subject := "vda_request.rbac_domain.user.get_users_by_permission"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),

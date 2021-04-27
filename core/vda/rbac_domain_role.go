@@ -8,7 +8,7 @@ import (
 )
 
 func CreateRoleInDomain(apiKey string, role string, permissions [][]string, otherData interface{}) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.create_role_in_domain"
+	subject := "vda_request.rbac_domain.role.create_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -35,7 +35,7 @@ func CreateRoleInDomain(apiKey string, role string, permissions [][]string, othe
 }
 
 func GetAllRolesInDomain(apiKey string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.get_all_role_in_domain"
+	subject := "vda_request.rbac_domain.role.get_all_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -56,8 +56,30 @@ func GetAllRolesInDomain(apiKey string) map[string]interface{} {
 	return resp
 }
 
+func GetAllRolesWithPermissionsInDomain(apiKey string) map[string]interface{} {
+	subject := "vda_request.rbac_domain.role.get_all_roles_with_permissions"
+	requestBody, _ := json.Marshal(
+		map[string]interface{}{
+			"request_id": uuid.New().String(),
+			"api_key":    apiKey,
+		},
+	)
+
+	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "GetAllRolesWithPermissionsInDomain: " + err.Error()}
+	}
+
+	resp := make(map[string]interface{})
+	if err := json.Unmarshal(msg.Data, &resp); err != nil {
+		return map[string]interface{}{"code": "10", "message": "GetAllRolesWithPermissionsInDomain: " + err.Error()}
+	}
+
+	return resp
+}
+
 func GetDetailARoleInDomain(apiKey string, role string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.get_detail_role_in_domain"
+	subject := "vda_request.rbac_domain.role.get_detail_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -82,7 +104,7 @@ func GetDetailARoleInDomain(apiKey string, role string) map[string]interface{} {
 }
 
 func UpdateRoleInDomain(apiKey string, role string, permissions [][]string, otherData interface{}) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.update_role_in_domain"
+	subject := "vda_request.rbac_domain.role.update_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -135,7 +157,7 @@ func AddPermissionsForRole(apiKey string, role string, permissions [][]string) m
 }
 
 func DeleteRoleInDomain(apiKey string, role string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.delete_role_in_domain"
+	subject := "vda_request.rbac_domain.role.delete_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -160,7 +182,7 @@ func DeleteRoleInDomain(apiKey string, role string) map[string]interface{} {
 }
 
 func DeletePermissionsForRoleInDomain(apiKey string, role string, permissions [][]string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.delete_permissions_for_role_in_domain"
+	subject := "vda_request.rbac_domain.role.delete_permissions_for_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
@@ -186,7 +208,7 @@ func DeletePermissionsForRoleInDomain(apiKey string, role string, permissions []
 }
 
 func DeleteAllPermissionsForRoleInDomain(apiKey string, role string) map[string]interface{} {
-	subject := "vda_request.rbac_domain.role.delete_all_permissions_for_role_in_domain"
+	subject := "vda_request.rbac_domain.role.delete_all_permissions_for_role"
 	requestBody, _ := json.Marshal(
 		map[string]interface{}{
 			"request_id": uuid.New().String(),
