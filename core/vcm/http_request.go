@@ -3,6 +3,7 @@ package vcm
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"time"
 
@@ -46,6 +47,7 @@ func HttpScheduleNoti(ctx context.Context, apiKey, id, timestamp, timezone strin
 }
 
 func HttpDeleteScheduleNoti(ctx context.Context, apiKey, id string) map[string]interface{} {
+	fmt.Println("Begin HttpDeleteScheduleNoti")
 	url := transport.Domain + "/api/notification/v2/schedule/deactiveSchedule/" + id
 
 	respBytes, err := transport.MakeHTTPDeleteRequest(ctx, url, []string{"Authorization"}, []string{apiKey})

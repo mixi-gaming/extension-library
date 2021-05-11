@@ -122,7 +122,9 @@ func MakeHTTPPatchRequest(ctx context.Context, URL string, headerKeys, headerVal
 func MakeHTTPDeleteRequest(ctx context.Context, URL string, headerKeys, headerValues []string) ([]byte, error) {
 	headerKeys = append(headerKeys, "Content-Type")
 	headerValues = append(headerValues, "application/json")
-	return retry(5, 1, httpElement{"DELETE", URL, headerKeys, headerValues, nil}, makeRequest)
+	httpElmItem := httpElement{"DELETE", URL, headerKeys, headerValues, nil}
+	fmt.Println("DEBUG httpElmItem:", httpElmItem)
+	return retry(5, 1, httpElmItem, makeRequest)
 }
 
 // MakeHTTPPostFormRequest - MakeHTTPPostFormRequest
