@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/tls"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
@@ -90,6 +91,57 @@ func makeRequest(element httpElement) ([]byte, error) {
 	return bodyBytes, nil
 }
 
+func newMakeRequest(element httpElement) ([]byte, error) {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := http.Client{
+		Transport: tr,
+		Timeout:   Timeout,
+	}
+
+	request, err := http.NewRequest(element.method, element.url, element.body)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+
+	for i := 0; i < len(element.headerKeys); i++ {
+		if element.headerKeys[i] != "" && element.headerValues[i] != "" {
+			request.Header.Set(element.headerKeys[i], element.headerValues[i])
+		}
+	}
+
+	resp, err := client.Do(request)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	defer resp.Body.Close()
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	var body interface{}
+	err = json.Unmarshal(bodyBytes, &body)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	tmp := map[string]interface{}{
+		"body":        body,
+		"status_code": resp.StatusCode,
+	}
+	bodyBytes, err = json.Marshal(tmp)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+
+	return bodyBytes, nil
+}
+
 // MakeHTTPGetRequest - MakeHTTPGetRequest
 func MakeHTTPGetRequest(ctx context.Context, URL string, headerKeys, headerValues []string, bodyRequest []byte) ([]byte, error) {
 	headerKeys = append(headerKeys, "Content-Type")
@@ -98,10 +150,14 @@ func MakeHTTPGetRequest(ctx context.Context, URL string, headerKeys, headerValue
 }
 
 // MakeHTTPPostRequest - MakeHTTPPostRequest
-func MakeHTTPPostRequest(ctx context.Context, URL string, headerKeys, headerValues []string, bodyRequest []byte) ([]byte, error) {
+func MakeHTTPPostRequest(ctx context.Context, URL string, headerKeys, headerValues []string, bodyRequest []byte, withStatuscode ...bool) ([]byte, error) {
 	headerKeys = append(headerKeys, "Content-Type")
 	headerValues = append(headerValues, "application/json")
-	return retry(5, 1, httpElement{"POST", URL, headerKeys, headerValues, bytes.NewBuffer(bodyRequest)}, makeRequest)
+	if len(withStatuscode) != 0 {
+		return retry(5, 1, httpElement{"POST", URL, headerKeys, headerValues, bytes.NewBuffer(bodyRequest)}, newMakeRequest)
+	} else {
+		return retry(5, 1, httpElement{"POST", URL, headerKeys, headerValues, bytes.NewBuffer(bodyRequest)}, makeRequest)
+	}
 }
 
 // MakeHTTPPutRequest - MakeHTTPPutRequest
