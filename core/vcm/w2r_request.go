@@ -156,3 +156,28 @@ func NatsGetAllAndroidHistory(apiKey string, start int64, stop int64) map[string
 
 	return result
 }
+
+func NatsGetAndroidNotisWithFilter(apiKey string, page, limit int, filterBody map[string]interface{}) map[string]interface{} {
+	subject := "vcm_android_request.get_notis_with_filter"
+	requestBody, _ := json.Marshal(
+		map[string]interface{}{
+			"request_id":  uuid.New().String(),
+			"api_key":     apiKey,
+			"page":        page,
+			"limit":       limit,
+			"filter_body": filterBody,
+		},
+	)
+
+	msg, err := transport.Nc.Request(subject, requestBody, transport.Timeout)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "Get All Android History FAILED: " + err.Error()}
+	}
+
+	result := make(map[string]interface{})
+	if err := json.Unmarshal(msg.Data, &result); err != nil {
+		return map[string]interface{}{"code": "10", "message": "Get All Android History FAILED: " + err.Error()}
+	}
+
+	return result
+}
