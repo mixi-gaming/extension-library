@@ -564,3 +564,28 @@ func NatsIncreaseByCondition(apiKeyVDD, bucketID string, bodyData interface{}) m
 
 	return resp
 }
+
+// NatsBasicStatistics - NatsBasicStatistics
+func NatsBasicStatistics(apiKey, bucketID string, body interface{}) map[string]interface{} {
+	subj := "vdd_request.BasicStatistics"
+
+	nReq := new(model.NATSRequest)
+	nReq.RequestID = uuid.New().String()
+	nReq.APIKey = apiKey
+	nReq.BucketID = bucketID
+	nReq.Body = body
+
+	payload, _ := json.Marshal(nReq)
+	msg, err := transport.Nc.Request(subj, payload, transport.Timeout)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "NatsBasicStatistics FAILED: " + err.Error()}
+	}
+
+	resp := make(map[string]interface{})
+	err = json.Unmarshal(msg.Data, &resp)
+	if err != nil {
+		return map[string]interface{}{"code": "10", "message": "NatsBasicStatistics FAILED: " + err.Error()}
+	}
+
+	return resp
+}
